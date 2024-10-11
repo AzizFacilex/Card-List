@@ -7,9 +7,10 @@ import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import LogoutModal from "./components/modals/LogoutModal";
 import Notifications from "./components/notifications/Notification";
+import PaginationControls from "./components/pagination/PaginationControls";
+import Loader from "./components/shared/Loader";
 import useFetchCards from "./hooks/useFetchCards";
 import { Card } from "./types/card";
-import Loader from "./components/shared/Loader";
 
 function App() {
   const CARDS_PER_PAGE = 6;
@@ -108,6 +109,12 @@ function App() {
           </div>
         </div>
       </div>
+      <PaginationControls
+        currentPage={currentPage}
+        cardsPerPage={CARDS_PER_PAGE}
+        totalCards={sortedCards.length}
+        paginate={paginate}
+      />
       <Notifications
         modal={LogoutModal}
         modalProps={{
