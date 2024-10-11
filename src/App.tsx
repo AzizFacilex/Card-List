@@ -22,6 +22,7 @@ function App() {
     setIsModalOpen(false);
   };
 
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header isSideMenuOpen={isSideMenuOpen} setIsSideMenuOpen={setIsSideMenuOpen} setIsModalOpen={setIsModalOpen} />
