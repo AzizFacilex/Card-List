@@ -11,9 +11,10 @@ import PaginationControls from "./components/pagination/PaginationControls";
 import Loader from "./components/shared/Loader";
 import useFetchCards from "./hooks/useFetchCards";
 import { Card } from "./types/card";
+import useResponsiveCardsPerPage from "./hooks/useResponsiveCardsPerPage";
 
 function App() {
-  const CARDS_PER_PAGE = 6;
+  const cardsPerPage = useResponsiveCardsPerPage();
   const { allCards, loading, error } = useFetchCards();
   const [sortedCards, setSortedCards] = useState<Card[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -62,8 +63,8 @@ function App() {
     }
   }, [allCards, sortBy]);
 
-  const indexOfLastCard = currentPage * CARDS_PER_PAGE;
-  const indexOfFirstCard = indexOfLastCard - CARDS_PER_PAGE;
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentDisplayedCards = sortedCards.slice(indexOfFirstCard, indexOfLastCard);
 
   const paginate = (pageNumber: number) => {
@@ -77,7 +78,7 @@ function App() {
     const updatedSortedCards = sortedCards.filter((card) => card.id !== id);
 
     setSortedCards(updatedSortedCards);
-    setCurrentPage(Math.min(currentPage, Math.ceil(updatedSortedCards.length / CARDS_PER_PAGE)));
+    setCurrentPage(Math.min(currentPage, Math.ceil(updatedSortedCards.length / cardsPerPage)));
   };
 
   if (loading) return <Loader />;
@@ -111,7 +112,7 @@ function App() {
       </div>
       <PaginationControls
         currentPage={currentPage}
-        cardsPerPage={CARDS_PER_PAGE}
+        cardsPerPage={cardsPerPage}
         totalCards={sortedCards.length}
         paginate={paginate}
       />
