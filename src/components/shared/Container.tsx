@@ -1,10 +1,24 @@
+import React, { useEffect, useState } from "react";
 import { cn } from "../../lib/utils";
+import useResponsiveCardsPerPage from "../../hooks/useResponsiveCardsPerPage";
 
 interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   fluid?: boolean;
 }
 
 const Container: React.FC<ContainerProps> = ({ fluid = true, className, children, ...props }) => {
+  const cardsPerPage = useResponsiveCardsPerPage();
+
+  const cardHeight = 372;
+  const paddingHeight = 50;
+
+  const minContainerHeight = cardHeight * Math.ceil(cardsPerPage / 3) + paddingHeight;
+
+  const [containerHeight, setContainerHeight] = useState(minContainerHeight);
+
+  useEffect(() => {
+    setContainerHeight(minContainerHeight);
+  }, [minContainerHeight]);
 
   return (
     <div>
@@ -15,6 +29,7 @@ const Container: React.FC<ContainerProps> = ({ fluid = true, className, children
           "bg-white shadow-lg rounded-lg p-6 pb-12",
           className
         )}
+        style={{ minHeight: `${containerHeight}px`, height: 'auto' }}
         {...props}
       >
         {children}
