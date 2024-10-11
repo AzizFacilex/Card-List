@@ -1,17 +1,18 @@
 import type { Card as CardType } from "@/src/types/card";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 import React from "react";
 import Button from "../shared/Button";
 import { Card } from "../shared/Card";
 import { Textarea } from "../shared/Textarea";
 import { TextField } from "../shared/Textfield";
+import CardDetails from "./CardDetails";
 
 interface CardComponentProps {
   card: CardType;
   removeCard: (id: string) => void;
-  expandedCard: string | null; // Receive expanded state from parent
-  toggleCard: (id: string) => void; // Receive toggle function from parent
+  expandedCard: string | null; 
+  toggleCard: (id: string) => void;
 }
 
 const CardComponent: React.FC<CardComponentProps> = ({ card, removeCard, expandedCard, toggleCard }) => {
@@ -63,6 +64,7 @@ const CardComponent: React.FC<CardComponentProps> = ({ card, removeCard, expande
             <ChevronDown className="text-gray-600 h-5 w-5" />
           )}
         </div>
+        <AnimatePresence>{expandedCard === card.id && <CardDetails card={card} />}</AnimatePresence>
       </Card>
     </motion.div>
   );
