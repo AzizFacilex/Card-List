@@ -9,9 +9,9 @@ const useResponsiveCardsPerPage = () => {
       if (height >= 1200) {
         setCardsPerPage(9);
       } else if (height >= 768) {
-        setCardsPerPage(4);
+        setCardsPerPage(6);
       } else {
-        setCardsPerPage(2);
+        setCardsPerPage(3);
       }
     };
 
